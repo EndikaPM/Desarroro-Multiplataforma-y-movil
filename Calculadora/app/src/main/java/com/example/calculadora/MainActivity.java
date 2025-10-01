@@ -1,5 +1,6 @@
 package com.example.calculadora;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import android.widget.TextView;
 public class MainActivity extends AppCompatActivity {
 
     private StringBuilder texPantalla = new StringBuilder();
+    float resultado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,25 +28,26 @@ public class MainActivity extends AppCompatActivity {
 
         //almacenamos los botones igual que antes
         // acuerdate endica de que ara el id es necesario llamar desde la R.
-        Button uno = findViewById(R.id.uno);
-        Button dos = findViewById(R.id.dos);
-        Button tres = findViewById(R.id.tres);
-        Button cuatro = findViewById(R.id.cuatro);
-        Button cinco = findViewById(R.id.cinco);
-        Button sies = findViewById(R.id.seis);
-        Button siete = findViewById(R.id.siete);
-        Button ocho = findViewById(R.id.ocho);
-        Button nuece = findViewById(R.id.nueve);
-        Button cero = findViewById(R.id.cero);
+        Button uno = (Button) findViewById(R.id.uno);
+        Button dos = (Button) findViewById(R.id.dos);
+        Button tres = (Button) findViewById(R.id.tres);
+        Button cuatro = (Button) findViewById(R.id.cuatro);
+        Button cinco = (Button) findViewById(R.id.cinco);
+        Button sies = (Button) findViewById(R.id.seis);
+        Button siete = (Button) findViewById(R.id.siete);
+        Button ocho = (Button) findViewById(R.id.ocho);
+        Button nuece = (Button) findViewById(R.id.nueve);
+        Button cero = (Button) findViewById(R.id.cero);
 
         //almacenamos los botones de funcion
-        Button suma = findViewById(R.id.suma);
-        Button reta = findViewById(R.id.menos);
-        Button multipli = findViewById(R.id.multipli);
-        Button divi = findViewById(R.id.divi);
-        Button igual = findViewById(R.id.equal);
+        Button suma = (Button) findViewById(R.id.suma);
+        Button reta = (Button) findViewById(R.id.menos);
+        Button multipli = (Button) findViewById(R.id.multipli);
+        Button divi = (Button) findViewById(R.id.divi);
+        Button igual = (Button) findViewById(R.id.equal);
 
-        Button coma = findViewById(R.id.coma);
+        Button coma = (Button) findViewById(R.id.coma);
+        Button Cc = (Button) findViewById(R.id.reinicio);
 
         View.OnClickListener bot = new View.OnClickListener() {
             @Override
@@ -74,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         //---coma--- no se aun como gestionarla
         coma.setOnClickListener(bot);
+        Cc.setOnClickListener(bot);
+
 
         // el igual mirar a ver otro modo paraque no de problemas
         igual.setOnClickListener(new View.OnClickListener() {
@@ -81,30 +86,38 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //no permite el split directamente porque no lo se...
                 String signoOperacion = texPantalla.toString();
-                float resultado;
                 String [] partes;
 
                 if (signoOperacion.contains("+")){
                     //da error si no pones la barras de escape porque no lo coge como texto sino suma o concatena
                     // eso tienes que tenerlo en cuenta tonto
                     partes = signoOperacion.split("\\+");
-                    resultado = suma(Float.parseFloat(partes[0]),Float.parseFloat(partes[2]));
+                    resultado = suma(Float.parseFloat(partes[0]),Float.parseFloat(partes[1]));
                     pantalla.setText(String.valueOf(resultado));
                 } else if (signoOperacion.contains("-")) {
                     partes = signoOperacion.split("-");
-                    resultado = resta(Float.parseFloat(partes[0]),Float.parseFloat(partes[2]));
+                    resultado = resta(Float.parseFloat(partes[0]),Float.parseFloat(partes[1]));
                     pantalla.setText(String.valueOf(resultado));
                 }else if (signoOperacion.contains("*")) {
                     partes = signoOperacion.split("\\*");
-                    resultado = multi(Float.parseFloat(partes[0]),Float.parseFloat(partes[2]));
+                    resultado = multi(Float.parseFloat(partes[0]),Float.parseFloat(partes[1]));
                     pantalla.setText(String.valueOf(resultado));
                 }else if (signoOperacion.contains("/")) {
                     partes = signoOperacion.split("/");
-                    resultado = divi(Float.parseFloat(partes[0]),Float.parseFloat(partes[2]));
+                    resultado = divi(Float.parseFloat(partes[0]),Float.parseFloat(partes[1]));
                     pantalla.setText(String.valueOf(resultado));
                 }else {
                     pantalla.setText("Error");
                 }
+            }
+        });
+
+        Cc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              pantalla.setText("0");
+              texPantalla.delete(0, texPantalla.length());
+              resultado = 0;
             }
         });
     }

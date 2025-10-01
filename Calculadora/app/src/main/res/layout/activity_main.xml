@@ -108,8 +108,6 @@
         <Button
             android:id="@+id/suma"
             android:layout_height="wrap_content"
-            android:layout_rowSpan="2"
-            android:layout_gravity="fill"
             android:backgroundTint="@color/orange"
             android:text="+"
             android:textSize="25sp" />
@@ -120,10 +118,17 @@
             android:text="0"
             android:textSize="25sp" />
 
+
         <Button
             android:id="@+id/coma"
-            android:backgroundTint="@color/VioletaOscuro"
+            android:backgroundTint="@color/blackOscuro"
             android:text="."
+            android:textSize="25sp" />
+
+        <Button
+            android:id="@+id/reinicio"
+            android:backgroundTint="@color/VioletaOscuro"
+            android:text="Cc"
             android:textSize="25sp" />
 
         <Button
